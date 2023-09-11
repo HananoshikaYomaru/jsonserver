@@ -1,8 +1,12 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const path = require("path");
+const jsonServer = require("json-server");
 const port = process.env.PORT || 3001;
+
+const server = jsonServer.create();
+const router = jsonServer.router("db.json");
+const middlewares = jsonServer.defaults();
 
 /**
  * Middlewares
@@ -16,6 +20,10 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("heelo");
 });
+
+server.use(middlewares);
+server.use(router);
+app.use(server);
 
 app.listen(port, () => {
   console.log("============================");
