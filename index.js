@@ -4,10 +4,6 @@ const cors = require("cors");
 const jsonServer = require("json-server");
 const port = process.env.PORT || 3001;
 
-const server = jsonServer.create();
-const router = jsonServer.router("db.json");
-const middlewares = jsonServer.defaults();
-
 /**
  * Middlewares
  */
@@ -20,6 +16,10 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("heelo");
 });
+
+const server = jsonServer.create();
+const router = jsonServer.router("public/db.json");
+const middlewares = jsonServer.defaults();
 
 server.use(middlewares);
 server.use(router);
