@@ -1,13 +1,29 @@
-import jsonServer from "json-server";
-import express from "express";
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const path = require("path");
+const port = process.env.PORT || 3001;
 
-const server = jsonServer.create();
-const router = jsonServer.router("db.json");
-const middlewares = jsonServer.defaults();
+/**
+ * Middlewares
+ */
+app.use(express.static("public"));
+app.use(cors());
 
-server.use(express.static("public"));
-server.use(middlewares);
-server.use(router);
-server.listen(3000, () => {
-  console.log("JSON Server is running on", "http://localhost:3000");
+/**
+ * Routes
+ */
+app.get("/", (req, res) => {
+  res.send("heelo");
 });
+
+app.listen(port, () => {
+  console.log("============================");
+
+  console.log(`Server started ✨`);
+  console.log(`local: http://localhost:${port}`);
+
+  console.log("============================");
+});
+
+module.exports = app;
